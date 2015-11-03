@@ -37,7 +37,7 @@ except ImportError:
 
 from xml.etree import ElementTree
 
-product = sys.argv[1];
+product = sys.argv[1]
 
 if len(sys.argv) > 2:
     depsonly = sys.argv[2]
