@@ -118,6 +118,7 @@ PRODUCT_PACKAGES += \
     sm \
     svc \
     tc \
+    tm \    
     telecom \
     tm \
     vdc \
