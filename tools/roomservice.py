@@ -50,13 +50,13 @@ except:
     device = product
 
 if not depsonly:
-    print ("Device %s not found. Attempting to retrieve device repository from TV-LP51-Devices Github (http://github.com/TV-LP51-Devices)." % device)
+    print ("Device %s not found. Attempting to retrieve device repository from ValidusOs-Devices Github (http://github.com/ValidusOs-Devices)." % device)
 
 repositories = []
 
 page = 1
 while not depsonly:
-    result = json.loads(urllib2.urlopen("https://api.github.com/users/TV-LP51-Devices/repos?page=%d" % page).read())
+    result = json.loads(urllib2.urlopen("https://api.github.com/users/ValidusOs-Devices/repos?page=%d" % page).read())
     if len(result) == 0:
         break
     for res in result:
@@ -147,7 +147,7 @@ def add_to_manifest_dependencies(repositories):
                 print ('Updating dependency %s' % (repo_name))
                 existing_project.set('name', repository['repository'])
             if existing_project.attrib['revision'] == repository['branch']:
-                print ('TV-LP51-Devices/%s already exists' % (repo_name))
+                print ('ValidusOs-Devices/%s already exists' % (repo_name))
             else:
                 print ('updating branch for %s to %s' % (repo_name, repository['branch']))
                 existing_project.set('revision', repository['branch'])
@@ -183,15 +183,15 @@ def add_to_manifest(repositories):
         existing_project = exists_in_tree_device(lm, repo_name)
         if existing_project != None:
             if existing_project.attrib['revision'] == repository['branch']:
-                print ('TV-LP51-Devices/%s already exists' % (repo_name))
+                print ('ValidusOs-Devices/%s already exists' % (repo_name))
             else:
-                print ('updating branch for TV-LP51-Devices/%s to %s' % (repo_name, repository['branch']))
+                print ('updating branch for ValidusOs-Devices/%s to %s' % (repo_name, repository['branch']))
                 existing_project.set('revision', repository['branch'])
             continue
 
-        print ('Adding dependency: TV-LP51-Devices/%s -> %s' % (repo_name, repo_target))
+        print ('Adding dependency: ValidusOs-Devices/%s -> %s' % (repo_name, repo_target))
         project = ElementTree.Element("project", attrib = { "path": repo_target,
-            "remote": "github", "name": "TV-LP51-Devices/%s" % repo_name, "revision": "6.0" })
+            "remote": "github", "name": "ValidusOs-Devices/%s" % repo_name, "revision": "6.0" })
 
         if 'branch' in repository:
             project.set('revision', repository['branch'])
@@ -261,4 +261,4 @@ else:
             print("Done")
             sys.exit()
 
-print ("Repository for %s not found in the TV-LP51-Devices Github repository list. If this is in error, you may need to manually add it to .repo/local_manifests/validus_manifest.xml") % device
+print ("Repository for %s not found in the ValidusOs-Devices Github repository list. If this is in error, you may need to manually add it to .repo/local_manifests/validus_manifest.xml") % device
