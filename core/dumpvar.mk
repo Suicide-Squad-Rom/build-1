@@ -61,41 +61,44 @@ endif
 
 endif # CALLED_FROM_SETUP
 
+ifneq ($(BUILD_WITH_COLORS),0)
+    include $(TOP_DIR)build/core/colors.mk
+endif
+
 
 ifneq ($(PRINT_BUILD_CONFIG),)
 HOST_OS_EXTRA:=$(shell python -c "import platform; print(platform.platform())")
-$(info ============================================)
-$(info ==================ValidusOs=================)
-$(info ============================================)
-$(info   VALIDUS_VERSION=$(VALIDUS_VERSION))
-$(info ============================================)
-$(info   PLATFORM_VERSION_CODENAME=$(PLATFORM_VERSION_CODENAME))
-$(info   PLATFORM_VERSION=$(PLATFORM_VERSION))
-$(info   TARGET_PRODUCT=$(TARGET_PRODUCT))
-$(info   TARGET_BUILD_VARIANT=$(TARGET_BUILD_VARIANT))
-$(info   TARGET_BUILD_TYPE=$(TARGET_BUILD_TYPE))
-$(info   TARGET_BUILD_APPS=$(TARGET_BUILD_APPS))
-$(info   TARGET_ARCH=$(TARGET_ARCH))
-$(info   TARGET_ARCH_VARIANT=$(TARGET_ARCH_VARIANT))
-$(info   TARGET_CPU_VARIANT=$(TARGET_CPU_VARIANT))
-$(info ============================================)
+$(info ${CLR_CYN} =============================================)
+$(info ${CLR_CYN} =================ValidusOs===================)
+$(info ${CLR_CYN} =============================================)
+$(info ${CLR_GRN}   VALIDUS_VERSION=$(VALIDUS_VERSION))
+$(info ${CLR_CYN} ============================================)
+$(info ${CLR_YLW}   PLATFORM_VERSION_CODENAME=$(PLATFORM_VERSION_CODENAME))
+$(info ${CLR_YLW}   PLATFORM_VERSION=$(PLATFORM_VERSION))
+$(info ${CLR_YLW}   TARGET_BUILD_TYPE=$(TARGET_BUILD_TYPE))
+$(info ${CLR_YLW}   TARGET_ARCH=$(TARGET_ARCH))
+$(info ${CLR_YLW}   TARGET_ARCH_VARIANT=$(TARGET_ARCH_VARIANT))
+$(info ${CLR_YLW}   TARGET_BUILD_APPS=$(TARGET_BUILD_APPS))
+$(info ${CLR_YLW}   TARGET_CPU_VARIANT=$(TARGET_CPU_VARIANT))
+$(info ${CLR_YLW}   TARGET_2ND_CPU_VARIANT=$(TARGET_2ND_CPU_VARIANT))
+$(info ${CLR_CYN} ============================================)
 ifeq ($(TARGET_DRAGONTC_VERSION),)
 else
-$(info   CLANG_VERSION=$(DTC_VER))
+$(info ${CLR_YLW}   CLANG_VERSION=$(DTC_VER))
 endif
-$(info   TARGET_GCC_VERSION=$(TARGET_GCC_VERSION))
-$(info   TARGET_NDK_GCC_VERSION=$(TARGET_NDK_GCC_VERSION))
+$(info ${CLR_YLW}   TARGET_GCC_VERSION=$(TARGET_GCC_VERSION))
+$(info ${CLR_YLW}   TARGET_NDK_GCC_VERSION=$(TARGET_NDK_GCC_VERSION))
 ifdef TARGET_GCC_VERSION_ARM
-$(info   TARGET_KERNEL_TOOLCHAIN=$(TARGET_GCC_VERSION_ARM))
+$(info ${CLR_YLW}   TARGET_KERNEL_TOOLCHAIN=$(TARGET_GCC_VERSION_ARM))
 else
-$(info   TARGET_KERNEL_TOOLCHAIN=$(TARGET_GCC_VERSION))
+$(info ${CLR_YLW}   TARGET_KERNEL_TOOLCHAIN=$(TARGET_GCC_VERSION))
 endif
-$(info ============================================)
-$(info   HOST_ARCH=$(HOST_ARCH))
-$(info   HOST_OS=$(HOST_OS))
-$(info   HOST_OS_EXTRA=$(HOST_OS_EXTRA))
-$(info   HOST_BUILD_TYPE=$(HOST_BUILD_TYPE))
-$(info   BUILD_ID=$(BUILD_ID))
-$(info   OUT_DIR=$(OUT_DIR))
-$(info ============================================)
+$(info ${CLR_CYN} ============================================)
+$(info ${CLR_YLW}   HOST_ARCH=$(HOST_ARCH))
+$(info ${CLR_YLW}   HOST_OS=$(HOST_OS))
+$(info ${CLR_YLW}   HOST_OS_EXTRA=$(HOST_OS_EXTRA))
+$(info ${CLR_YLW}   HOST_BUILD_TYPE=$(HOST_BUILD_TYPE))
+$(info ${CLR_YLW}   BUILD_ID=$(BUILD_ID))
+$(info ${CLR_YLW}   OUT_DIR=$(OUT_DIR))
+$(info ${CLR_CYN} ============================================${CLR_RST})
 endif
