@@ -1505,8 +1505,6 @@ fi
           sh_location = m.group(1)
           found = True
           break
-  except (OSError, IOError) as e:
-    print("failed to read init.rc: %s" % e)
 
     if found:
       break
