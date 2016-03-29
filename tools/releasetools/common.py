@@ -492,10 +492,8 @@ def GetBootableImage(name, prebuilt_name, unpack_dir, tree_subdir,
 
 def UnzipTemp(filename, pattern=None):
   """Unzip the given archive into a temporary directory and return the name.
-
   If filename is of the form "foo.zip+bar.zip", unzip foo.zip into a
   temp dir, then unzip bar.zip into that_dir/BOOTABLE_IMAGES.
-
   Returns (tempdir, zipobj) where zipobj is a zipfile.ZipFile (of the
   main file), open for reading.
   """
@@ -579,10 +577,8 @@ def SignFile(input_name, output_name, key, password, align=None,
   """Sign the input_name zip/jar/apk, producing output_name.  Use the
   given key and password (the latter may be None if the key does not
   have a password.
-
   If align is an integer > 1, zipalign is run to align stored files in
   the output zip on 'align'-byte boundaries.
-
   If whole_file is true, use the "-w" option to SignApk to embed a
   signature that covers the whole file in the archive comment of the
   zip file.
@@ -690,18 +686,14 @@ COMMON_DOCSTRING = """
   -p  (--path)  <dir>
       Prepend <dir>/bin to the list of places to search for binaries
       run by this script, and expect to find jars in <dir>/framework.
-
   -s  (--device_specific) <file>
       Path to the python module containing device-specific
       releasetools code.
-
   -x  (--extra)  <key=value>
       Add a key/value pair to the 'extras' dict, which device-specific
       extension code may look at.
-
   -v  (--verbose)
       Show command lines being executed.
-
   -h  (--help)
       Display this usage message and exit.
 """
@@ -805,7 +797,6 @@ class PasswordManager(object):
     """Get passwords corresponding to each string in 'items',
     returning a dict.  (The dict may have keys in addition to the
     values in 'items'.)
-
     Uses the passwords in $ANDROID_PW_FILE if available, letting the
     user edit that file to add more needed passwords.  If no editor is
     available, or $ANDROID_PW_FILE isn't define, prompts the user
@@ -941,11 +932,9 @@ def ZipWrite(zip_file, filename, arcname=None, perms=0o644,
 def ZipWriteStr(zip_file, zinfo_or_arcname, data, perms=None,
                 compress_type=None):
   """Wrap zipfile.writestr() function to work around the zip64 limit.
-
   Even with the ZIP64_LIMIT workaround, it won't allow writing a string
   longer than 2GiB. It gives 'OverflowError: size does not fit in an int'
   when calling crc32(bytes).
-
   But it still works fine to write a shorter string into a large zip file.
   We should use ZipWrite() whenever possible, and only use ZipWriteStr()
   when we know the string won't be too long.
@@ -1436,7 +1425,6 @@ def MakeRecoveryPatch(input_dir, output_sink, recovery_img, boot_img,
   should be efficient.)  Add it to the output zip, along with a shell
   script that is run from init.rc on first boot to actually do the
   patching and install the new recovery image.
-
   recovery_img and boot_img should be File objects for the
   corresponding images.  info should be the dictionary returned by
   common.LoadInfoDict() on the input target_files.
@@ -1470,7 +1458,6 @@ def MakeRecoveryPatch(input_dir, output_sink, recovery_img, boot_img,
 if [ -f /system/etc/recovery-transform.sh ]; then
   exec sh /system/etc/recovery-transform.sh %(recovery_size)d %(recovery_sha1)s %(boot_size)d %(boot_sha1)s
 fi
-
 if ! applypatch -c %(recovery_type)s:%(recovery_device)s:%(recovery_size)d:%(recovery_sha1)s; then
   applypatch %(bonus_args)s %(boot_type)s:%(boot_device)s:%(boot_size)d:%(boot_sha1)s %(recovery_type)s:%(recovery_device)s %(recovery_sha1)s %(recovery_size)d %(boot_sha1)s:/system/recovery-from-boot.p && log -t recovery "Installing new recovery image: succeeded" || log -t recovery "Installing new recovery image: failed"
 else
@@ -1487,28 +1474,18 @@ fi
        'bonus_args': bonus_args}
 
   # The install script location moved from /system/etc to /system/bin
-  # in the L release.  Parse init.*.rc files to find out where the
+  # in the L release.  Parse the init.rc file to find out where the
   # target-files expects it to be, and put it there.
   sh_location = "etc/install-recovery.sh"
-  found = False
-  init_rc_dir = os.path.join(input_dir, "BOOT", "RAMDISK")
-  init_rc_files = os.listdir(init_rc_dir)
-  for init_rc_file in init_rc_files:
-    if (not init_rc_file.startswith('init.') or
-        not init_rc_file.endswith('.rc')):
-      continue
-
-    with open(os.path.join(init_rc_dir, init_rc_file)) as f:
+  try:
+    with open(os.path.join(input_dir, "BOOT", "RAMDISK", "init.rc")) as f:
       for line in f:
         m = re.match(r"^service flash_recovery /system/(\S+)\s*$", line)
         if m:
           sh_location = m.group(1)
-          found = True
+          print("putting script in", sh_location)
           break
+  except (OSError, IOError) as e:
+    print("failed to read init.rc: %s" % e)
 
-    if found:
-      break
-
-  print "putting script in", sh_location 
- 
   output_sink(sh_location, sh)
