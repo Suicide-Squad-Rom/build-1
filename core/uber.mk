@@ -97,7 +97,18 @@ LOCAL_DISABLE_STRICT := \
 	libc_nomalloc \
 	linker \
 	sensors.flounder \
-	libnvvisualizer
+	libnvvisualizer \
+	libbt-vendor \
+	libbluetooth_jni \
+	libskia \
+	gatt_testtool \
+	libavmediaserviceextensions \
+	libqsap_sdk \
+	wpa_supplicant \
+	libstlport \
+	libwifi-hal-qcom \
+	fio \
+	tcpdump
 
 LOCAL_FORCE_DISABLE_STRICT := \
 	libziparchive-host \
@@ -124,7 +135,8 @@ LOCAL_FORCE_DISABLE_STRICT := \
 	linker \
 	libc_malloc \
 	sensors.flounder \
-	libnvvisualizer
+	libnvvisualizer \
+	libavmediaserviceextensions
 
 DISABLE_STRICT := \
 	-fno-strict-aliasing
