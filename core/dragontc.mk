@@ -57,8 +57,7 @@ DISABLE_DTC_arm := \
   libdl \
   libc_freebsd \
   libxml2 \
-  libcompiler_rt-extras \
-  libminuitwrp
+  libcompiler_rt-extras
 
 DISABLE_DTC_arm64 := \
   libm \
