@@ -50,11 +50,7 @@ DISABLE_DTC_arm := \
   libRSDriver \
   libRSCpuRef \
   libRSSupport \
-  librsjni \
-  libavcodec \
-  libstagefright \
-  libLLVM \
-  libdl
+  librsjni
 
 DISABLE_DTC_arm64 := \
   libm \
@@ -69,13 +65,7 @@ DISABLE_DTC_arm64 := \
   libRSCpuRef \
   libRSSupport \
   libLLVMObject \
-  librsjni \
-  libavcodec \
-  libstagefright \
-  healthd \
-  recovery \
-  libminui \
-  libLLVM
+  librsjni
 
 # Set DISABLE_DTC based on arch
 DISABLE_DTC := \
@@ -94,7 +84,6 @@ ENABLE_DTC := \
 # Disable modules that dont work with Polly. Split up by arch.
 DISABLE_POLLY_arm := \
   libpng \
-  libLLVM \
   libLLVMCodeGen \
   libLLVMARMCodeGen\
   libLLVMScalarOpts \
@@ -109,15 +98,11 @@ DISABLE_POLLY_arm := \
   libmedia \
   libblasV8 \
   libjni_latinime_common_static \
-  librsjni \
-  libavcodec \
-  healthd \
-  libdl
+  librsjni
 
 DISABLE_POLLY_arm64 := \
   libpng \
   libfuse \
-  libLLVM \
   libLLVMAsmParser \
   libLLVMBitReader \
   libLLVMCodeGen \
@@ -139,15 +124,11 @@ DISABLE_POLLY_arm64 := \
   libstagefright_mpeg2ts \
   bcc_strip_attr \
   libvixl \
-  librsjni \
-  libavcodec \
-  healthd \
-  libminui
+  librsjni
 
 # Add version specific disables.
 ifeq (1,$(words $(filter 3.8 3.9,$(LLVM_PREBUILTS_VERSION))))
   DISABLE_POLLY_arm64 += \
-       libLLVM \
 	libLLVMAnalysis \
 	libLLVMScalarOpts \
 	libLLVMCore \
