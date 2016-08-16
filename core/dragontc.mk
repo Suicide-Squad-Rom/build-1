@@ -99,8 +99,7 @@ DISABLE_POLLY_arm := \
   libpng \
   libLLVM \
   libLLVMCodeGen \
-  libLLVMARMCodeGen \
-  libLLVMSelectionDAG \
+  libLLVMARMCodeGen\
   libLLVMObject \
   libLLVMScalarOpts \
   libLLVMSupport \
@@ -109,7 +108,7 @@ DISABLE_POLLY_arm := \
   libF77blas \
   libF77blasV8 \
   libRSCpuRef \
-  libRS \
+  libRS	\
   libRSDriver\
   libmedia \
   libblasV8 \
@@ -156,40 +155,7 @@ DISABLE_POLLY_arm64 := \
   healthd \
   libminui
 
-# Add version specific disables for arm.
-ifeq (1,$(words $(filter 3.8 3.9,$(LLVM_PREBUILTS_VERSION))))
-  DISABLE_POLLY_arm += \
-	libpng \
-	libLLVM \
-	libLLVMCodeGen \
-	libLLVMARMCodeGen \
-	libLLVMSelectionDAG \
-	libLLVMObject \
-	libLLVMScalarOpts \
-	libLLVMSupport \
-	libLLVMMC \
-	libminui \
-	libF77blas \
-	libF77blasV8 \
-	libRSCpuRef \
-	libRS \
-	libRSDriver\
-	libmedia \
-	libblasV8 \
-	libjni_latinime_common_static \
-	librsjni \
-	libavcodec \
-	healthd \
-	libdl \
-	libui \
-	libc_freebsd \
-	libandroidfw \
-	libxml2 \
-	libcompiler_rt-extras \
-	libbcinfo
-endif
-
-# Add version specific disables for arm64.
+# Add version specific disables.
 ifeq (1,$(words $(filter 3.8 3.9,$(LLVM_PREBUILTS_VERSION))))
   DISABLE_POLLY_arm64 += \
 	healthd \
@@ -211,7 +177,6 @@ ifeq (1,$(words $(filter 3.8 3.9,$(LLVM_PREBUILTS_VERSION))))
 	libLLVMSupport \
 	libLLVMTransformObjCARC \
 	libLLVMVectorize \
-	libLLVMBitReader_2_7 \
 	libmedia \
 	libminui \
 	libprotobuf-cpp-lite \
@@ -224,10 +189,7 @@ ifeq (1,$(words $(filter 3.8 3.9,$(LLVM_PREBUILTS_VERSION))))
 	libvterm \
 	libxml2 \
 	libstagefright \
-	libstagefright_mediafilter \
-	libbcinfo \
-	libcxx \
-	libbcc
+	libstagefright_mediafilter
 endif
 
 # Set DISABLE_POLLY based on arch
