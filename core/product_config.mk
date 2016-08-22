@@ -179,9 +179,9 @@ include $(BUILD_SYSTEM)/node_fns.mk
 include $(BUILD_SYSTEM)/product.mk
 include $(BUILD_SYSTEM)/device.mk
 
-# A Validus build needs only the Validus product makefiles.
-ifneq ($(VALIDUS_BUILD),)
-  all_product_configs := $(shell find device -path "*/$(VALIDUS_BUILD)/validus.mk")
+# A CANDY build needs only the CANDY product makefiles.
+ifneq ($(CANDY_BUILD),)
+  all_product_configs := $(shell find device -path "*/$(CANDY_BUILD)/candy.mk")
 else
   ifneq ($(strip $(TARGET_BUILD_APPS)),)
   # An unbundled app build needs only the core product makefiles.
